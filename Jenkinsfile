@@ -8,7 +8,7 @@ pipeline {
             steps {
                 sh 'pwd'
                 sh 'll'
-                sh './mwnv clean install -DskipTests'
+                sh './mvnw clean install -DskipTests'
             }
         }
         stage('Tests') {
