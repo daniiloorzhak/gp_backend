@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  postgres:
+    image: 'postgres'
+    container_name: postgres
+    environment:
+      - POSTGRES_PASSWORD=qwerty
+      - POSTGRES_USER=app
+      - POSTGRES_DB=gp
+    command:
+      - '-p 6543'
+  app:
+    image: 'app'
+    build:
+      context: .
+    container_name: app
+    depends_on:
+      - postgres
+    ports:
+      - '8080:8080'
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:6543/gp
+      - SPRING_DATASOURCE_USERNAME=app
+      - SPRING_DATASOURCE_PASSWORD=qwerty
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+#    command: '-p 6543:6543'
+
